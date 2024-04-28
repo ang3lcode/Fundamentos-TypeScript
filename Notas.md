@@ -85,3 +85,66 @@ Aquí indicamos que **id** y **userId** pueden ser de tipo `string` o `nu
 Una mejor práctica
 
 El tipo de dato `any` nos brinda la flexibilidad de JavaScript en TypeScript con respecto al tipado. Sin embargo, si deseamos eso, es mejor hacer uso de los Union Types.
+
+
+# Alias y tipos literales
+
+Los Alias nos permiten darle un nombre a uno o varios tipos de datos en conjunto. Un ejemplo de como se definen sería así:
+
+```ts
+type UserID = string | boolean | number;
+```
+
+¡Ahora _UserID_ lo podemos usar como si fuese un tipo de dato `string`, `boolean` o `number`!
+
+```ts
+let dynamicVar: UserID = "300";
+
+dynamicVar = true;
+dynamicVar = 200;
+```
+
+Los Union Types que vayamos a utilizar ahora serán menos tediosos de escribir, pues con los Alias podemos utilizar el mismo conjunto de tipos de datos en la definición de varias variables, beneficiándonos en escribir menos código.
+
+```
+type UserID = string | boolean | number;
+
+let dynamicVar: UserID = "300";
+
+function helloUser( userId: UserID ) {
+    console.log(`Un saludo al usuario con el número de id ${userId}`);
+}
+```
+
+**Nota:** la palabra _type_ en los Alias es algo propio de TypeScript.
+
+## Tipos Literales (Literal Types)
+
+Gracias a esto podemos definir explícita y literalmente los posibles valores que puede tomar nuestra variable. Por ejemplo:
+
+```ts
+let shirtSize: "S" | "M" | "L" | "XL";
+
+shirtSize = "M"; //CORRECTO
+shirtSize = "S"; //CORRECTO
+shirtSize = "qwrty"; //ERROR. No está en las opciones.
+shirtSize = "SS"; //ERROR. Letra de más.
+shirtSize = "m"; //ERROR. Está en minúscula.
+```
+
+Definimos que la variable `shirtSize` pueda ser una de las 4 posibles opciones de valores, que estos sean de tipo `string` y que estén en mayúscula, por tanto, si queremos asignar un valor que no sea exactamente como lo declaramos, TypeScript nos mostrará un error.
+
+## Alias + Tipos Literales
+
+También podríamos combinarlas para facilitar aún más el desarrollo de nuestro programa:
+
+```ts
+type Sizes = 'S' | 'M' | 'L' | 'XL';
+
+let shirtSize: Sizes;
+shirtSize = "M";
+
+function yourSize( userSize: Sizes ){
+    console.log(`Tu medida es ${userSize}`);
+}
+```
