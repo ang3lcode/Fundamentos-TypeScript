@@ -320,3 +320,37 @@ imprimirDatos({
 En el ejemplo, el nombre `data` hace referencia al objeto que recibirá la función `imprimirDatos`. Por ello, para acceder al valor de `username` lo definimos en el `console.log` como `data.username` y para el `email` como `data.email`, pues así es como se accede a las propiedades de un objeto.
 
 Finalmente, cuando invocamos `imprimirDatos` y queremos enviar el objeto que nos pide como parámetro, simplemente se colocará entre llaves los atributos del mismo sin colocar un nombre de referencia como `data` tal como lo hicimos en la definición de la función.
+
+
+# Objetos como tipos
+
+En TypeScript también podemos usar los Alias para definir la estructura de tipado que debería tener un objeto:
+
+```ts
+//TypeScript
+type userData = {
+    username: string,
+    email: string
+}
+```
+
+Y luego este “nuevo tipo” puede ser usado en un `array`, por ejemplo, para definir el tipado de los objetos que queramos añadir:
+
+```ts
+//TypeScript
+type userData = {
+    username: string,
+    email: string
+}
+
+let usersList: userData[] = [];
+
+usersList.push({
+    username: "freddier", //CORRECTO
+    email: "freddy@email.com", //CORRECTO
+});
+usersList.push({
+    username: "cvander", //CORRECTO
+    email: true, // ERROR. Debe ser de tipo string y NO de tipo boolean
+});
+```
