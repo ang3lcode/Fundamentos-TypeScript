@@ -354,3 +354,44 @@ usersList.push({
     email: true, // ERROR. Debe ser de tipo string y NO de tipo boolean
 });
 ```
+
+
+# Módulos: import y export
+
+Nuestro código puede ser dividido en varios **módulos** (archivos), por lo que para poder usar las funciones o variables que existen en uno y queramos acceder desde otro, utilizamos `import` y `export`.
+
+## Export
+
+```ts
+/*---->  Archivo: funciones.ts  <----*/
+export function suma(a: number, b: number): number {
+    return a + b;
+}
+
+export function resta(a: number, b: number): number {
+    return a - b;
+}
+
+export let numerosRandom = [1, 30, 40, 50];
+export type Sizes = "S" | "M" | "L" | "XL";
+```
+
+Como observamos, tenemos un archivo llamado `funciones.ts` la cual contiene dos funciones: _suma_ y _resta_. Si estas queremos usarlas desde otro archivo, necesitamos usar la palabra reservada `export` justo antes de definir nuestra función (lo mismo aplica para las variables). De esta forma indicamos que serán exportados para ser utilizados desde otro archivo JavaScript/TypeScript.
+
+## Import
+
+```ts
+/*---> Archivo: programa.ts  <---*/
+
+import {suma, resta, Sizes} from "./funciones.ts";
+```
+
+Finalmente, las funciones o variables que queramos utilizar desde otro archivo son importadas de la siguiente manera:
+
+1. Usamos la palabra reservada `import`
+2. Entre llaves indicamos las funciones y/o variables que queremos acceder. Hacemos una separación con comas
+3. Usamos la palabra reservada `from`, seguido de, entre comillas dobles o simples, la ruta de la ubicación en la que se encuentra el archivo del cual estamos importando su código.
+
+## Nota
+
+Si es un módulo **TypeScript** lo que estamos importando, es importante que en la **ruta** de los **import** figure la **extensión `.ts`** de dicho archivo. Si es un archivo JavaScript, colocar la **extensión `.js`** es **opcional**.
